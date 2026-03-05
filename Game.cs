@@ -74,6 +74,7 @@ namespace MohawkGame2D
             {
                 //stop on floor
                 Velocity.Y = 0;
+                Position.Y = Window.Size.Y - Size;
                 //jump
                 if (Input.IsKeyboardKeyPressed(KeyboardInput.W))
                 {
@@ -82,12 +83,14 @@ namespace MohawkGame2D
             }
             //drag X axis
             Velocity.X += (-Velocity.X * 0.2f);
-            
+
+            //if mouse is pressed spawn a new box
             if (Input.IsMouseButtonPressed(0))
             {
                 objects.AddBoxVelocity(new Vector2(0, 0));
                 objects.AddBoxPosition(Input.GetMousePosition());
             }
+            //move and draw objects
             objects.MoveAndDraw();
         }
     }
