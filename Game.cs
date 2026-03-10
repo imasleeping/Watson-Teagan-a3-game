@@ -16,13 +16,13 @@ namespace MohawkGame2D
         Objects objects = new Objects();
         Vector2 Velocity = new Vector2(0, 0);
         Vector2 Position = new Vector2(100, 100);
-        int Size = 50;
+        int Size = 25;
         int Speed = 50;
         int JumpForce = 400;
         int Gravity = 10;
         public void Setup()
         {
-            Window.SetSize(1400, 1000);
+            Window.SetSize(800, 600);
         }
         public void Update()
         {
