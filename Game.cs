@@ -4,12 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-// The namespace your code is in.
 namespace MohawkGame2D
 {
-    /// <summary>
-    ///     Your game code goes inside this class!
-    /// </summary>
     public class Game
     {
 
@@ -26,10 +22,9 @@ namespace MohawkGame2D
             //if mouse is pressed spawn a new box
             if (Input.IsMouseButtonPressed(0))
             {
-                objects.AddBoxVelocity(new Vector2(0, 0));
-                objects.AddBoxPosition(Input.GetMousePosition());
+                objects.AddBox(new Vector2(0, 0),Input.GetMousePosition());
             }
-            //move and draw objects
+            //move and draw objects/player
             objects.MoveAndDraw();
             player.MoveAndDraw();
         }
