@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 namespace MohawkGame2D
 {
@@ -10,7 +11,8 @@ namespace MohawkGame2D
         int Speed = 50;
         int JumpForce = 250;
         int Gravity = 10;
-            public void MoveAndDraw()
+        int BoxSize = 30;
+        public void MoveAndDraw()
 	    {
             //player parameters
             Draw.FillColor = Color.White;
@@ -62,6 +64,17 @@ namespace MohawkGame2D
                 if (Input.IsKeyboardKeyPressed(KeyboardInput.W))
                 {
                     Velocity.Y -= JumpForce;
+                }
+            }
+            List<Vector2> BoxPositions = Objects.BoxPositions;
+            for (int I = 0; I < BoxPositions.Count; I++)
+            {
+                //compare current box position to others to check if they overlap
+                if (Position.Y > BoxPositions[I].Y - BoxSize && Position.X > BoxPositions[I].X - BoxSize && Position.X < BoxPositions[I].X + BoxSize && Position.Y < BoxPositions[I].Y + BoxSize)
+                {
+                    // if colliding stop player movement 
+                    Position = new Vector2(Position.X, BoxPositions[I].Y - BoxSize);
+                    Velocity = new Vector2(0, 0);
                 }
             }
             //drag X axis

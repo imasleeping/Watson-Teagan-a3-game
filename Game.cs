@@ -1,5 +1,4 @@
-﻿// Include the namespaces (code libraries) you need below.
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -11,6 +10,7 @@ namespace MohawkGame2D
 
         Objects objects = new Objects();
         Player player = new Player();
+        float BoxSpawnTimer = 0.5f;
         public void Setup()
         {
             Window.SetSize(800, 600);
@@ -20,9 +20,11 @@ namespace MohawkGame2D
             Window.ClearBackground(Color.Black);
 
             //if mouse is pressed spawn a new box
-            if (Input.IsMouseButtonPressed(0))
+            BoxSpawnTimer -= Time.DeltaTime;
+            if (BoxSpawnTimer < 0 )
             {
-                objects.AddBox(new Vector2(0, 0),Input.GetMousePosition());
+                objects.AddBox(new Vector2(0, 0),new Vector2(Random.Float(0, Window.Size.X),0));
+                BoxSpawnTimer = 0.5f;
             }
             //move and draw objects/player
             objects.MoveAndDraw();
