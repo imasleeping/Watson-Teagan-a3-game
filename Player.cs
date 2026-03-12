@@ -11,7 +11,7 @@ namespace MohawkGame2D
         int Speed = 50;
         int JumpForce = 250;
         int Gravity = 10;
-        int BoxSize = 30;
+        int BoxSize = 35;
         public void MoveAndDraw()
 	    {
             //player parameters
@@ -66,15 +66,33 @@ namespace MohawkGame2D
                     Velocity.Y -= JumpForce;
                 }
             }
+            // get box positions from object class
             List<Vector2> BoxPositions = Objects.BoxPositions;
             for (int I = 0; I < BoxPositions.Count; I++)
             {
-                //compare current box position to others to check if they overlap
-                if (Position.Y > BoxPositions[I].Y - BoxSize && Position.X > BoxPositions[I].X - BoxSize && Position.X < BoxPositions[I].X + BoxSize && Position.Y < BoxPositions[I].Y + BoxSize)
+                //compare current player position to box position to check if they overlap
+                if (Position.Y > BoxPositions[I].Y - Size && Position.X > BoxPositions[I].X - Size && Position.X < BoxPositions[I].X + BoxSize && Position.Y < BoxPositions[I].Y + BoxSize)
                 {
-                    // if colliding stop player movement 
-                    Position = new Vector2(Position.X, BoxPositions[I].Y - BoxSize);
-                    Velocity = new Vector2(0, 0);
+
+                        //check if player collides with top
+                        if (Position.X - BoxPositions[I].X < Position.Y - BoxPositions[I].Y)
+                        {
+                            // block sideways movement on the side of the box
+                            Position.X = BoxPositions[I].X - Size;
+                        }
+                        else
+                        {
+                            if (Position.X - BoxPositions[I].X > Position.Y - BoxPositions[I].Y)
+                            {
+                                // block vertical movement on the top of the box
+                                Position.Y = BoxPositions[I].Y - Size;
+                            }
+                        }
+                    //jump
+                    if (Input.IsKeyboardKeyPressed(KeyboardInput.W))
+                    {
+                        Velocity.Y -= JumpForce;
+                    }
                 }
             }
             //drag X axis

@@ -10,7 +10,7 @@ namespace MohawkGame2D
 
         Objects objects = new Objects();
         Player player = new Player();
-        float BoxSpawnTimer = 0.5f;
+        float BoxSpawnTimer = 3f;
         public void Setup()
         {
             Window.SetSize(800, 600);
@@ -24,7 +24,7 @@ namespace MohawkGame2D
             if (BoxSpawnTimer < 0 )
             {
                 objects.AddBox(new Vector2(0, 0),new Vector2(Random.Float(0, Window.Size.X),0));
-                BoxSpawnTimer = 0.5f;
+                BoxSpawnTimer = 3f;
             }
             //move and draw objects/player
             objects.MoveAndDraw();
