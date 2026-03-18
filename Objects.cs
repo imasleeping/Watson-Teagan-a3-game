@@ -6,14 +6,14 @@ using System.Numerics;
 
 namespace MohawkGame2D
 {
-
 public class Objects
 {
         public static List<Vector2> BoxPositions = new List<Vector2>();
         public List<Vector2> BoxVelocitys = new List<Vector2>();
         public List<bool> BoxGrounded = new List<bool>();
-        int BoxSize = 35;
+        int BoxSize = 45;
         int Gravity = 10;
+        public static Texture2D BoxTexture = Graphics.LoadTexture("..\\..\\..\\Images\\FaceBlock.png");
         public void AddBox(Vector2 Velocity, Vector2 Position)
         {
             //add new box with set velocity and position
@@ -63,8 +63,10 @@ public class Objects
                 }
                 //a move box based on velocity and render box at its position
                 BoxPositions[i] += BoxVelocitys[i] * Time.DeltaTime;
-                Draw.FillColor = Color.Red;
-                Draw.Square(BoxPositions[i], BoxSize);
+                //Draw.FillColor = Color.Red;
+                //Draw.Square(BoxPositions[i], BoxSize);
+                Graphics.Scale = 2f;
+                Graphics.Draw(BoxTexture, BoxPositions[i]);
             }
         }
 }

@@ -7,16 +7,21 @@ namespace MohawkGame2D
     {
         Vector2 Velocity = new Vector2(0, 0);
         Vector2 Position = new Vector2(100, 100);
-        int Size = 25;
+        int SizeY = 41;
+        int SizeX = 35;
         int Speed = 50;
         int JumpForce = 250;
         int Gravity = 10;
-        int BoxSize = 35;
+        int BoxSize = 45;
+        public Texture2D PlayerTexture = Graphics.LoadTexture("..\\..\\..\\Images\\SmallClown.png");
         public void MoveAndDraw()
 	    {
             //player parameters
-            Draw.FillColor = Color.White;
-            Draw.Square(Position, Size);
+
+            Graphics.Scale = 1.8f;
+            Graphics.Draw(PlayerTexture, Position);
+            //Draw.FillColor = Color.White;
+            //Draw.Square(Position, Size);
 
             //velocity to movement
             Position += Velocity * Time.DeltaTime;
@@ -36,7 +41,7 @@ namespace MohawkGame2D
                 }
             }
             //right boundary
-            if (Position.X > Window.Size.X - Size)
+            if (Position.X > Window.Size.X - SizeX)
             {
                 //wall bouncyness right
                 Velocity.X -= 50;
@@ -50,7 +55,7 @@ namespace MohawkGame2D
                 }
             }
             //floor boundary
-            if (Position.Y < Window.Size.Y - Size)
+            if (Position.Y < Window.Size.Y - SizeY)
             {
                     //gravity
                     Velocity.Y += Gravity;
@@ -59,7 +64,7 @@ namespace MohawkGame2D
             {
                 //stop on floor
                 Velocity.Y = 0;
-                Position.Y = Window.Size.Y - Size;
+                Position.Y = Window.Size.Y - SizeY;
                 //disable gravity
                 //jump
                 if (Input.IsKeyboardKeyPressed(KeyboardInput.W))
@@ -72,11 +77,9 @@ namespace MohawkGame2D
             for (int I = 0; I < BoxPositions.Count; I++)
             {
                 //compare current player position to box position to check if they overlap
-                if (Position.Y > BoxPositions[I].Y - Size && Position.X > BoxPositions[I].X - Size && Position.X < BoxPositions[I].X + BoxSize && Position.Y < BoxPositions[I].Y + BoxSize)
+                if (Position.Y > BoxPositions[I].Y - SizeY && Position.X > BoxPositions[I].X - SizeX && Position.X < BoxPositions[I].X + BoxSize && Position.Y < BoxPositions[I].Y + BoxSize)
                 {
                     Vector2 Collider = BoxPositions[I];
-
-
 
                     //jump if on box and jump pressed
                     if (Input.IsKeyboardKeyPressed(KeyboardInput.W))
@@ -93,10 +96,10 @@ namespace MohawkGame2D
                         else
                         {
                             //check if player is on top of the box
-                            if (Position.Y <= Collider.Y - Size + 15)
+                            if (Position.Y <= Collider.Y - SizeY + 15)
                             {
                                 // block vertical movement on the top of the box
-                                Position.Y = Collider.Y - Size;
+                                Position.Y = Collider.Y - SizeY;
                             }
                             else
                             {
@@ -104,7 +107,7 @@ namespace MohawkGame2D
                             if (Position.X <= Collider.X + 10)
                                 {
                                     // block sideways movement on the left side of the box
-                                    Position.X = Collider.X - Size;
+                                    Position.X = Collider.X - SizeX;
                                 }
                                 //check if player collides with right side of box
                                 if (Position.X >= Collider.X + BoxSize - 10)
