@@ -10,7 +10,6 @@ public class Lava
     public Texture2D LavaSprite = Graphics.LoadTexture("..\\..\\..\\Images\\Lava.png");
 	public void Rise()
 	{
-		Console.WriteLine(Height);
 		Height -= Speed;
 		Speed += 0.0001f;
         Graphics.Scale = 1f;

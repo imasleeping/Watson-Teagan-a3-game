@@ -106,6 +106,10 @@ namespace MohawkGame2D
                             {
                                 // block vertical movement on the top of the box
                                 Position.Y = Collider.Y - SizeY;
+                            if (Velocity.Y > 0)
+                            {
+                                Velocity.Y = 0;
+                            }
                             }
                             else
                             {
@@ -124,7 +128,6 @@ namespace MohawkGame2D
                             }
                         }
                 }
-
             }
             //drag X axis
             Velocity.X += (-Velocity.X * 0.2f);
