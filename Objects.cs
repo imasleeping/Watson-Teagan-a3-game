@@ -9,7 +9,7 @@ namespace MohawkGame2D
 public class Objects
 {
         public static List<Vector2> BoxPositions = new List<Vector2>();
-        public List<Vector2> BoxVelocitys = new List<Vector2>();
+        public static List<Vector2> BoxVelocitys = new List<Vector2>();
         public List<bool> BoxGrounded = new List<bool>();
         int BoxSize = 45;
         int Gravity = 10;

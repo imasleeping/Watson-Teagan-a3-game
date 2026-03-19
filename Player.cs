@@ -6,7 +6,7 @@ namespace MohawkGame2D
     public class Player
     {
         Vector2 Velocity = new Vector2(0, 0);
-        Vector2 Position = new Vector2(100, 100);
+        public static Vector2 Position = new Vector2(100, 100);
         int SizeY = 41;
         int SizeX = 35;
         int Speed = 50;
@@ -74,6 +74,8 @@ namespace MohawkGame2D
             }
             // get box positions from object class
             List<Vector2> BoxPositions = Objects.BoxPositions;
+            // get box velocitys from object class
+            List<Vector2> BoxVelocitys = Objects.BoxVelocitys;
             for (int I = 0; I < BoxPositions.Count; I++)
             {
                 //compare current player position to box position to check if they overlap
@@ -87,11 +89,15 @@ namespace MohawkGame2D
                         Velocity.Y = -JumpForce;
                     }
                         // check if player is on bottom of the box
-                        if (Position.Y >= Collider.Y + BoxSize + 5 - 10)
+                        if (Position.Y >= Collider.Y + BoxSize - 10)
                         {
                             // block vertical movement on the bottom of the box
                             Velocity.Y = 0;
                             Position.Y = Collider.Y + BoxSize + 1;
+                            if (BoxVelocitys[I].Y > 0)
+                            {
+                            Game.GameEnd = true;
+                            }
                         }
                         else
                         {
@@ -122,7 +128,6 @@ namespace MohawkGame2D
             }
             //drag X axis
             Velocity.X += (-Velocity.X * 0.2f);
-
         }
     }
 }
