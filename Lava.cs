@@ -11,7 +11,8 @@ public class Lava
 	public void Rise()
 	{
 		Height -= Speed;
-		Speed += 0.0001f;
+		// speed up lava rising
+		Speed += 0.0002f;
         Graphics.Scale = 1f;
         Graphics.Draw(LavaSprite, new Vector2(0,Height));
 	}

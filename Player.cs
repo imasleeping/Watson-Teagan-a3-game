@@ -12,8 +12,13 @@ namespace MohawkGame2D
         int Speed = 50;
         int JumpForce = 250;
         int Gravity = 10;
-        int BoxSize = 45;
+        int boxsize;
         public Texture2D PlayerTexture = Graphics.LoadTexture("..\\..\\..\\Images\\SmallClown.png");
+
+        public void Setup()
+        {
+            boxsize = Objects.BoxSize;
+        }
         public void MoveAndDraw()
 	    {
             //player parameters
@@ -54,7 +59,7 @@ namespace MohawkGame2D
                     Velocity.X += Speed;
                 }
             }
-            //floor boundary
+            //if player isnt on floor
             if (Position.Y < Window.Size.Y - SizeY)
             {
                     //gravity
@@ -65,7 +70,6 @@ namespace MohawkGame2D
                 //stop on floor
                 Velocity.Y = 0;
                 Position.Y = Window.Size.Y - SizeY;
-                //disable gravity
                 //jump
                 if (Input.IsKeyboardKeyPressed(KeyboardInput.W))
                 {
@@ -78,8 +82,12 @@ namespace MohawkGame2D
             List<Vector2> BoxVelocitys = Objects.BoxVelocitys;
             for (int I = 0; I < BoxPositions.Count; I++)
             {
+                if (Position.Y > Window.Size.Y)
+                {
+                    BoxPositions[I] = new Vector2(BoxPositions[I].X,BoxPositions[I].Y - 200);
+                }
                 //compare current player position to box position to check if they overlap
-                if (Position.Y > BoxPositions[I].Y - SizeY && Position.X > BoxPositions[I].X - SizeX && Position.X < BoxPositions[I].X + BoxSize && Position.Y < BoxPositions[I].Y + BoxSize)
+                if (Position.Y > BoxPositions[I].Y - SizeY && Position.X > BoxPositions[I].X - SizeX && Position.X < BoxPositions[I].X + boxsize && Position.Y < BoxPositions[I].Y + boxsize)
                 {
                     Vector2 Collider = BoxPositions[I];
 
@@ -89,11 +97,11 @@ namespace MohawkGame2D
                         Velocity.Y = -JumpForce;
                     }
                         // check if player is on bottom of the box
-                        if (Position.Y >= Collider.Y + BoxSize - 10)
+                        if (Position.Y >= Collider.Y + boxsize - boxsize / 3)
                         {
                             // block vertical movement on the bottom of the box
                             Velocity.Y = 0;
-                            Position.Y = Collider.Y + BoxSize + 1;
+                            Position.Y = Collider.Y + boxsize + 1;
                             if (BoxVelocitys[I].Y > 0)
                             {
                             Game.GameEnd = true;
@@ -102,28 +110,28 @@ namespace MohawkGame2D
                         else
                         {
                             //check if player is on top of the box
-                            if (Position.Y <= Collider.Y - SizeY + 15)
+                            if (Position.Y <= Collider.Y - SizeY + boxsize / 3)
                             {
                                 // block vertical movement on the top of the box
                                 Position.Y = Collider.Y - SizeY;
-                            if (Velocity.Y > 0)
+                            if (Velocity.Y > 10)
                             {
-                                Velocity.Y = 0;
+                                Velocity.Y = 10;
                             }
                             }
                             else
                             {
                             //check if player collides with left side of box
-                            if (Position.X <= Collider.X + 10)
+                            if (Position.X <= Collider.X + boxsize / 4)
                                 {
                                     // block sideways movement on the left side of the box
                                     Position.X = Collider.X - SizeX;
                                 }
                                 //check if player collides with right side of box
-                                if (Position.X >= Collider.X + BoxSize - 10)
+                                if (Position.X >= Collider.X + boxsize - boxsize / 4)
                                 {
                                     // block sideways movemnt on the right side of the box
-                                    Position.X = Collider.X + BoxSize;
+                                    Position.X = Collider.X + boxsize;
                                 }
                             }
                         }

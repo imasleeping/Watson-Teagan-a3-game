@@ -11,7 +11,7 @@ public class Objects
         public static List<Vector2> BoxPositions = new List<Vector2>();
         public static List<Vector2> BoxVelocitys = new List<Vector2>();
         public List<bool> BoxGrounded = new List<bool>();
-        int BoxSize = 45;
+        public static int BoxSize = 45;
         int Gravity = 10;
         public static Texture2D BoxTexture = Graphics.LoadTexture("..\\..\\..\\Images\\FaceBlock.png");
         public void AddBox(Vector2 Velocity, Vector2 Position)
@@ -65,7 +65,7 @@ public class Objects
                 BoxPositions[i] += BoxVelocitys[i] * Time.DeltaTime;
                 //Draw.FillColor = Color.Red;
                 //Draw.Square(BoxPositions[i], BoxSize);
-                Graphics.Scale = 2f;
+                Graphics.Scale = BoxSize/22.5f;
                 Graphics.Draw(BoxTexture, BoxPositions[i]);
             }
         }

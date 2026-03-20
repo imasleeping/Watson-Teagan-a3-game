@@ -12,11 +12,13 @@ namespace MohawkGame2D
         Player player = new Player();
         Lava lava = new Lava();
         public static bool GameEnd = false;
-        float BoxSpawnTimer = 1f;
-        float BoxSpawnTimerMax = 1f;
+        float BoxSpawnTimer = 0.8f;
+        float BoxSpawnTimerMax = 0.8f;
+        public static Texture2D GameOver = Graphics.LoadTexture("..\\..\\..\\Images\\GameOver.png");
         public void Setup()
         {
-            Window.SetSize(800, 600);
+            Window.SetSize(600, 800);
+            player.Setup();
         }
         public void Update()
         {
@@ -26,9 +28,12 @@ namespace MohawkGame2D
             BoxSpawnTimer -= Time.DeltaTime;
             if (BoxSpawnTimer < 0 )
             {
-                objects.AddBox(new Vector2(0, 0),new Vector2(Random.Float(0, Window.Size.X - 35),0));
+                objects.AddBox(new Vector2(0, 0),new Vector2(Random.Float(0, Window.Size.X - 35),-50));
                 BoxSpawnTimer = BoxSpawnTimerMax;
-                BoxSpawnTimerMax -= 0.005f;
+                if (BoxSpawnTimerMax > 0.05)
+                {
+                BoxSpawnTimerMax -= 0.01f;
+                }
             }
             if (!GameEnd)
             {
@@ -37,6 +42,12 @@ namespace MohawkGame2D
             player.MoveAndDraw();
             //move lava up
             lava.Rise();
+            }
+            else
+            {
+
+                Graphics.Scale = 0.75f;
+                Graphics.Draw(GameOver,0,0);
             }
 
             if (Lava.Height < Player.Position.Y)
