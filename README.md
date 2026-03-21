@@ -1,0 +1,1 @@
+Use W to jump and A and D to move. The goal is to climb the boxes and reach the top of the window to win. avoid getting hit by falling boxes or falling into the rising lava, it will send you back to the start.
