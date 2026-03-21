@@ -6,7 +6,7 @@ namespace MohawkGame2D
     public class Player
     {
         Vector2 Velocity = new Vector2(0, 0);
-        public static Vector2 Position = new Vector2(100, 100);
+        public static Vector2 Position = new Vector2(300, 800);
         int SizeY = 41;
         int SizeX = 35;
         int Speed = 50;

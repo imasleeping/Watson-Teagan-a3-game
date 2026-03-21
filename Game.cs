@@ -14,6 +14,7 @@ namespace MohawkGame2D
         public static bool GameEnd = false;
         float BoxSpawnTimer = 0.8f;
         float BoxSpawnTimerMax = 0.8f;
+        bool Win = false;
         public static Texture2D GameOver = Graphics.LoadTexture("..\\..\\..\\Images\\GameOver.png");
         public void Setup()
         {
@@ -52,7 +53,13 @@ namespace MohawkGame2D
 
             if (Lava.Height < Player.Position.Y)
             {
-                Game.GameEnd = true;
+                GameEnd = true;
+            }
+            // if player reaches top of screen the win
+            if (Player.Position.Y < 0)
+            {
+                GameEnd = true;
+                Win = true;
             }
         }
     }
