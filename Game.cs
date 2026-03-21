@@ -16,6 +16,7 @@ namespace MohawkGame2D
         float BoxSpawnTimerMax = 0.8f;
         bool Win = false;
         public static Texture2D GameOver = Graphics.LoadTexture("..\\..\\..\\Images\\GameOver.png");
+        public static Texture2D WinScreen = Graphics.LoadTexture("..\\..\\..\\Images\\WinScreen.png");
         public void Setup()
         {
             Window.SetSize(600, 800);
@@ -48,7 +49,14 @@ namespace MohawkGame2D
             {
 
                 Graphics.Scale = 0.75f;
-                Graphics.Draw(GameOver,0,0);
+                if (!Win)
+                {
+                    Graphics.Draw(GameOver, 0, 0);
+                }
+                else
+                {
+                    Graphics.Draw(WinScreen, 0, 0);
+                }
             }
 
             if (Lava.Height < Player.Position.Y)
